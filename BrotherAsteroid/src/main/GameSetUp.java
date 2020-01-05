@@ -63,7 +63,8 @@ public class GameSetUp implements Runnable {
         this.width = width;
         this.height = height;
         this.title = title;
-        keyManager = new KeyManager();
+        handler = new Handler(this);
+        keyManager = new KeyManager(handler);
         mouseManager = new MouseManager();
 
     }
@@ -79,7 +80,7 @@ public class GameSetUp implements Runnable {
         Images img = new Images();
 
 
-        handler = new Handler(this);
+        
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
