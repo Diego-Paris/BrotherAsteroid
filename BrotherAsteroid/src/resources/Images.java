@@ -21,6 +21,7 @@ public class Images {
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
+    public static BufferedImage titleCard;
 
     public Images() {
 
@@ -34,7 +35,8 @@ public class Images {
 
         try {
 
-            title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Title.png"));
+            title = ImageIO.read(getClass().getResourceAsStream("/Wallpapers/mainmenu_background.jpg"));
+            titleCard = ImageIO.read(getClass().getResourceAsStream("/Wallpapers/brother_asteroid_title.png"));
             GameOverState = ImageIO.read(getClass().getResourceAsStream("/Buttons/GameOverState.jpg"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Resume.png"));
@@ -47,9 +49,9 @@ public class Images {
             BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
             Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
             Options[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
-            butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/playbutton_normal.png"));//normbut
-            butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/playbutton_hovered.png"));//hoverbut
-            butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/playbutton_clicked.png"));//clickbut
+            butstart[0]= ImageIO.read(getClass().getResourceAsStream("/DButtons/play_button_idle.png"));//normbut
+            butstart[1]= ImageIO.read(getClass().getResourceAsStream("/DButtons/play_button_hover.png"));//hoverbut
+            butstart[2]= ImageIO.read(getClass().getResourceAsStream("/DButtons/play_button_pressed.png"));//clickbut
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
