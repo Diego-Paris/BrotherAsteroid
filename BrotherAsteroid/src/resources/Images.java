@@ -28,7 +28,7 @@ public class Images {
         butstart = new BufferedImage[3];
         Resume = new BufferedImage[2];
         BTitle = new BufferedImage[2];
-        Options = new BufferedImage[2];
+        Options = new BufferedImage[3];
         reStartButt = new BufferedImage[2];		//for the restart button
         QuitButton = new BufferedImage[2];		//for the quit button
         
@@ -47,12 +47,16 @@ public class Images {
             QuitButton[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitButton.png"));	//for the quit button
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitle.png"));
             BTitle[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BTitleP.png"));
-            Options[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/Options.png"));
-            Options[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/OptionsP.png"));
-            butstart[0]= ImageIO.read(getClass().getResourceAsStream("/DButtons/play_button_idle.png"));//normbut
-            butstart[1]= ImageIO.read(getClass().getResourceAsStream("/DButtons/play_button_hover.png"));//hoverbut
-            butstart[2]= ImageIO.read(getClass().getResourceAsStream("/DButtons/play_button_pressed.png"));//clickbut
+            Options[0] = ImageIO.read(getClass().getResourceAsStream("/NButtons/options_button_idle_2.png"));
+            Options[1] = ImageIO.read(getClass().getResourceAsStream("/NButtons/options_button_hover_2.png"));
+            Options[2] = ImageIO.read(getClass().getResourceAsStream("/NButtons/options_button_pressed_2.png"));
+            butstart[0]= ImageIO.read(getClass().getResourceAsStream("/NButtons/play_button_idle_2.png"));//normbut
+            butstart[1]= ImageIO.read(getClass().getResourceAsStream("/NButtons/play_button_hover_2.png"));//hoverbut
+            butstart[2]= ImageIO.read(getClass().getResourceAsStream("/NButtons/play_button_pressed_2.png"));//clickbut
+            
+            
 
+            
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
 
 

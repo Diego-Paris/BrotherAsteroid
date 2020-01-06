@@ -30,7 +30,9 @@ public abstract class UIObject {
 
 
     public void onMousePressed(MouseEvent e) {
-        active=true;
+    	if(bounds.contains(e.getX(),e.getY())){
+            active=true;
+        }else active=false;
     }
 
 
