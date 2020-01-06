@@ -22,6 +22,7 @@ public class Images {
     public static BufferedImage[] Options;
     public static ImageIcon icon;
     public static BufferedImage titleCard;
+    public static BufferedImage[] menuButt;
 
     public Images() {
 
@@ -31,7 +32,7 @@ public class Images {
         Options = new BufferedImage[3];
         reStartButt = new BufferedImage[2];		//for the restart button
         QuitButton = new BufferedImage[2];		//for the quit button
-        
+        menuButt = new BufferedImage[3];
 
         try {
 
@@ -53,7 +54,9 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/NButtons/play_button_idle_2.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/NButtons/play_button_hover_2.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/NButtons/play_button_pressed_2.png"));//clickbut
-            
+            menuButt[0]= ImageIO.read(getClass().getResourceAsStream("/NButtons/menu_button_idle.png"));//normbut
+            menuButt[1]= ImageIO.read(getClass().getResourceAsStream("/NButtons/menu_button_hover.png"));//hoverbut
+            menuButt[2]= ImageIO.read(getClass().getResourceAsStream("/NButtons/menu_button_pressed.png"));//clickbut
             
 
             

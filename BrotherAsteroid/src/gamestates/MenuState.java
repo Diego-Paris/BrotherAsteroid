@@ -46,6 +46,17 @@ public class MenuState extends State {
             }
         }));
         
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/8, handler.getHeight()/3+125+160, 499/3+33, 150/3+18, Images.menuButt, new ClickListlener() {
+            @Override
+            public void onClick() {
+                handler.getMouseManager().setUimanager(null);
+                handler.getGame().reStart();
+                State.setState(handler.getGame().pauseState);
+            }
+        }));
+        
+        
+        
     }
 
     @Override
