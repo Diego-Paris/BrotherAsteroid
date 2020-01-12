@@ -42,7 +42,7 @@ public class MenuState extends State {
             public void onClick() {
                 handler.getMouseManager().setUimanager(null);
                 handler.getGame().reStart();
-                State.setState(handler.getGame().pauseState);
+                State.setState(handler.getGame().optionsState);
             }
         }));
         
@@ -51,7 +51,15 @@ public class MenuState extends State {
             public void onClick() {
                 handler.getMouseManager().setUimanager(null);
                 handler.getGame().reStart();
-                State.setState(handler.getGame().pauseState);
+                State.setState(handler.getGame().scoresState);
+            }
+        }));
+        
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/8, handler.getHeight()/3+125+240, 499/3+33, 150/3+18, Images.QuitButton , new ClickListlener() {
+            @Override
+            public void onClick() {
+                handler.getMouseManager().setUimanager(null);
+                System.exit(0);
             }
         }));
         

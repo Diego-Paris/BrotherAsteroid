@@ -23,6 +23,16 @@ public class Images {
     public static ImageIcon icon;
     public static BufferedImage titleCard;
     public static BufferedImage[] menuButt;
+    
+    // Placeholders
+    public static BufferedImage optionsTemp;
+    public static BufferedImage pauseTemp;
+    public static BufferedImage gameoverTemp;
+    public static BufferedImage helpTemp;
+    public static BufferedImage scoreTemp;
+    public static BufferedImage[] buttonTemp;
+    
+    
 
     public Images() {
 
@@ -33,7 +43,9 @@ public class Images {
         reStartButt = new BufferedImage[2];		//for the restart button
         QuitButton = new BufferedImage[2];		//for the quit button
         menuButt = new BufferedImage[3];
-
+        
+        buttonTemp = new BufferedImage[3];
+        
         try {
 
             title = ImageIO.read(getClass().getResourceAsStream("/Wallpapers/mainmenu_background.jpg"));
@@ -58,10 +70,19 @@ public class Images {
             menuButt[1]= ImageIO.read(getClass().getResourceAsStream("/NButtons/menu_button_hover.png"));//hoverbut
             menuButt[2]= ImageIO.read(getClass().getResourceAsStream("/NButtons/menu_button_pressed.png"));//clickbut
             
-
-            
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
-
+            
+            optionsTemp = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_options_menu.png"));
+            pauseTemp = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_pause_menu.png"));
+            gameoverTemp = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_options_menu.png"));
+            helpTemp = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_help_menu.png"));
+            scoreTemp = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_score_menu.png"));
+            buttonTemp[0] = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_button_idle.png"));
+            buttonTemp[1] = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_button_hover.png"));
+            buttonTemp[2] = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_button_pressed.png"));
+            
+            
+            
 
         }catch (IOException e) {
         e.printStackTrace();

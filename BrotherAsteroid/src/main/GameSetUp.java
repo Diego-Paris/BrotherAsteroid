@@ -2,13 +2,19 @@ package main;
 
 
 import display.DisplayScreen;
+
+import gamestates.ScoresState;
+import gamestates.HelpState;
+import gamestates.OptionsState;
 import gamestates.GameOverState;
 import gamestates.GameState;
 import gamestates.MenuState;
 import gamestates.PauseState;
 import gamestates.State;
+
 import input.KeyManager;
 import input.MouseManager;
+
 import resources.Images;
 
 import javax.sound.sampled.*;
@@ -47,7 +53,10 @@ public class GameSetUp implements Runnable {
     public State gameState;
     public State menuState;
     public State pauseState;
-    public State gameOverState;	//created a new gameOverState
+    public State gameOverState;	
+    public State optionsState;
+    public State helpState;
+    public State scoresState;
 
     //Res.music
     private InputStream audioFile;
@@ -85,8 +94,11 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
-        gameOverState = new GameOverState(handler);		// GameOverState 
-
+        gameOverState = new GameOverState(handler);		
+        optionsState = new OptionsState(handler);
+        helpState = new HelpState(handler);
+        scoresState = new ScoresState(handler);
+        
         State.setState(menuState);
 
         try {

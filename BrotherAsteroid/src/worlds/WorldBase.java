@@ -67,12 +67,9 @@ public abstract class WorldBase {
 //
 //        }
     	
-    	g.setColor(Color.BLUE);
-    	g.setFont(new Font("Century", Font.BOLD, 25));
+    	g.setColor(Color.GREEN);
+    	g.setFont(new Font("Consolas", Font.PLAIN ,  25));
     	g.drawString("Score: " + player.currScore, 40, 20);
-    	
-    	
-
 
     }
 

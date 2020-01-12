@@ -36,6 +36,8 @@ public class Player {
 	public float currScore = 0; // stores current score
 	public int stepCounter = 0;
 
+	public boolean paused = false;
+	
 	Laser laser;
 	Laser shots[];
 	int shotIndex;
@@ -99,6 +101,10 @@ public class Player {
 			handler.getKeyManager().setrP(true);
 			this.xVel = 5;
 		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+			paused = true;
+			State.setState(handler.getGame().pauseState);
+		}
 	}
 
 	public void movementOnRelease(KeyEvent d) {
@@ -157,6 +163,11 @@ public class Player {
 			}	
 		}
 
+//		if(key == KeyEvent.VK_ESCAPE)
+//			if(paused = true) {
+//				paused = !paused;
+//			State.setState(handler.getGame().pauseState);
+//			}
 
 	}
 
