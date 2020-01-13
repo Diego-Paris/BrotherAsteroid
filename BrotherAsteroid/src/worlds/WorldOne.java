@@ -2,6 +2,7 @@ package worlds;
 
 import game.entities.Static.Apple;
 import main.Handler;
+import resources.Images;
 
 import java.awt.*;
 import java.util.Random;
@@ -51,7 +52,15 @@ public class WorldOne extends WorldBase{
     @Override
     public void render(Graphics g){
         super.render(g);
+       
+        g.drawImage(Images.gamestateBackground,0,0,handler.getWidth(),handler.getHeight(),null);
+        
+        g.setColor(Color.GREEN);
+    	g.setFont(new Font("Consolas", Font.PLAIN ,  25));
+    	g.drawString("Score: " + player.currScore, 40, 20);
+    	
         player.render(g,playerLocation);
+        
     }
 
 }

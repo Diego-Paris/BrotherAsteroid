@@ -5,6 +5,7 @@ import resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Random;
 
 import game.entities.Static.Apple;
@@ -45,11 +46,14 @@ public class Player {
 	Laser laser;
 	Laser shots[];
 	int shotIndex;
+	
+	public ArrayList<Laser> shotsFired;
+	public ArrayList<Laser> toRemove;
 
 	public Player(Handler handler){
 		this.handler = handler;
-		xCoord = 0;
-		yCoord = 0;
+		xCoord = (handler.getWidth()/2)-70;
+		yCoord = (handler.getHeight()/2)-70;
 		moveCounter = 0;
 		direction= "Right";
 		justAte = false;
@@ -59,6 +63,8 @@ public class Player {
 		shotIndex = 0;
 		angle = 0;
 		angleVel = 0;
+		shotsFired = new ArrayList<Laser>();
+		toRemove = new ArrayList<Laser>();
 	}
 	
 	public void tick() { 
@@ -66,8 +72,7 @@ public class Player {
 		movementOnPressed();
 		wrapAround();
 		fire();
-		//System.out.println(angle);
-		System.out.println(angleVel);
+		
 		
 
 	}
@@ -78,18 +83,25 @@ public class Player {
 		
 		//g.drawImage(Images.rockets[0] , xCoord, yCoord, 64, 64,null);
 		
-		g.drawImage(Images.rotate(Images.rockets[0], angle) , xCoord, yCoord, 128, 128,null);
 		
 		
 //		if(laser != null) {
 //			laser.render(g);
 //		}
 		
-		for (int i = 0; i < shots.length; i++) {
-			if(shots[i] != null) {
-				shots[i].render(g);
+//		for (int i = 0; i < shots.length; i++) {
+//			if(shots[i] != null) {
+//				shots[i].render(g);
+//			}
+//		}
+		
+		for (Laser laser : shotsFired) {
+			if(laser != null) {
+			laser.render(g);
 			}
 		}
+		g.drawImage(Images.rotate(Images.rockets[0], angle) , xCoord, yCoord, 70, 70,null);
+		
 	}
 	
 	
@@ -246,29 +258,29 @@ public class Player {
 
 	public void fire() {
 		
-		for (int i = 0; i < shots.length; i++) {
-			
-			// creates a new laser and pews
-			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && shots[shotIndex] == null) {
-				shots[shotIndex] = new Laser(handler);
-				
-				
-			}
-
-			//calls laser tick
-			if(shots[shotIndex] != null) {
-				shots[shotIndex].tick();
-			}
-
-			//if laser reached its life then nullify
-			if(shots[shotIndex] != null && shots[shotIndex].getLife() == shots[shotIndex].getLifeTotal()) {
-				shots[shotIndex] = null;
-			}	
-			shotIndex++;
-		}
-		
-		if(shotIndex > 1) 
-			shotIndex = 0;
+//		for (int i = 0; i < shots.length; i++) {
+//			
+//			// creates a new laser and pews
+//			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && shots[shotIndex] == null) {
+//				shots[shotIndex] = new Laser(handler);
+//				
+//				
+//			}
+//
+//			//calls laser tick
+//			if(shots[shotIndex] != null) {
+//				shots[shotIndex].tick();
+//			}
+//
+//			//if laser reached its life then nullify
+//			if(shots[shotIndex] != null && shots[shotIndex].getLife() == shots[shotIndex].getLifeTotal()) {
+//				shots[shotIndex] = null;
+//			}	
+//			shotIndex++;
+//		}
+//		
+//		if(shotIndex > 1) 
+//			shotIndex = 0;
 //		
 //		// creates a new laser and pews
 //		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && laser == null) {
@@ -287,9 +299,19 @@ public class Player {
 //			laser = null;
 //		}
 
-		
-		
-		
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
+			
+			shotsFired.add(new Laser(handler));
+			System.out.println("PEW!");
+		}
+		for (Laser laser : shotsFired) {
+			if(laser.life == laser.lifeTotal)
+				toRemove.add(laser);
+			if(laser != null)
+				laser.tick();
+			
+		}
+		shotsFired.removeAll(toRemove);
 		
 	}
 

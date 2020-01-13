@@ -1,6 +1,7 @@
 package game.entities.dynamic;
 
 import main.Handler;
+import resources.Images;
 
 import java.awt.*;
 
@@ -9,32 +10,49 @@ public class Laser {
 
 	public Handler handler;
 	
-	public int xCoord;
-	public int yCoord;
+	public double xCoord;
+	public double yCoord;
 	public int speed;
 	public int lifeTotal;
 	public int life;
+	public int angle;
 	
 	public Laser(Handler handler) {
 	
 		this.handler = handler;
-		xCoord = handler.getWorld().player.xCoord+11;
-		yCoord = handler.getWorld().player.yCoord;
+		xCoord = handler.getWorld().player.xCoord + 20;
+		yCoord = handler.getWorld().player.yCoord + 20;
 		speed = -8;
 		life = 0;
 		lifeTotal = 60;
+		angle = handler.getWorld().player.angle;
 	}
 	
 	public void tick() {
-		yCoord += speed;
+		
+		double givenAngle = angle;
+		
+		double cosAngle = Math.cos(Math.toRadians(givenAngle));
+		double sinAngle = Math.sin(Math.toRadians(givenAngle));
+		
+		double roundedCos = Math.round(cosAngle * 100) / 100.0;
+		double roundedSin = Math.round(sinAngle * 100) / 100.0;
+		
+		xCoord += (roundedSin) * 7;
+		yCoord += (-1 * roundedCos) * 7;
+		
+		//System.out.println(roundedCos + ", " + roundedSin);
+		
 		wrapAround();
 		life++;
+		
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect(xCoord, yCoord, 10, 30);
-		
+//		g.setColor(Color.red);
+//		g.fillRect(xCoord, yCoord, 10, 30);
+		//g.drawImage(Images.lasers[0] ,(int) xCoord, (int)yCoord, 30, 30,null);
+		g.drawImage(Images.rotate(Images.lasers[0], angle) , (int)xCoord, (int)yCoord, 30, 30,null);
 	}
 	
 	public void wrapAround() {

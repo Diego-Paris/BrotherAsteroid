@@ -4,6 +4,8 @@ import game.entities.dynamic.Player;
 import game.entities.dynamic.Tail;
 import game.entities.Static.Apple;
 import main.Handler;
+import resources.Images;
+
 import javax.swing.JOptionPane;
 
 import java.awt.*;
@@ -67,10 +69,10 @@ public abstract class WorldBase {
 //
 //        }
     	
-    	g.setColor(Color.GREEN);
-    	g.setFont(new Font("Consolas", Font.PLAIN ,  25));
-    	g.drawString("Score: " + player.currScore, 40, 20);
-
+//    	g.setColor(Color.GREEN);
+//    	g.setFont(new Font("Consolas", Font.PLAIN ,  25));
+//    	g.drawString("Score: " + player.currScore, 40, 20);
+//    	g.drawImage(Images.gamestateBackground,0,0,handler.getWidth(),handler.getHeight(),null);
     }
 
 }
