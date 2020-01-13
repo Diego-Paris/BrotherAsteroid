@@ -2,7 +2,12 @@ package resources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 
 /**
@@ -32,6 +37,9 @@ public class Images {
     public static BufferedImage scoreTemp;
     public static BufferedImage[] buttonTemp;
     
+    //Rockets
+    public static BufferedImage[] rockets;
+    
     
 
     public Images() {
@@ -45,6 +53,8 @@ public class Images {
         menuButt = new BufferedImage[3];
         
         buttonTemp = new BufferedImage[3];
+        
+        rockets = new BufferedImage[1];
         
         try {
 
@@ -81,6 +91,10 @@ public class Images {
             buttonTemp[1] = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_button_hover.png"));
             buttonTemp[2] = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_button_pressed.png"));
             
+            rockets[0] = ImageIO.read(getClass().getResourceAsStream("/Spaceships/rocket_default.png"));
+            
+            
+            
             
             
 
@@ -101,4 +115,46 @@ public class Images {
         return null;
     }
 
+    public static BufferedImage rotateImageByDegrees(BufferedImage img, double angle) {
+
+        double rads = Math.toRadians(angle);
+        double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
+        int w = img.getWidth();
+        int h = img.getHeight();
+        int newWidth = (int) Math.floor(w * cos + h * sin);
+        int newHeight = (int) Math.floor(h * cos + w * sin);
+
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        
+        Graphics2D g2d = rotated.createGraphics();
+        AffineTransform at = new AffineTransform();
+        at.translate((newWidth - w) / 2, (newHeight - h) / 2);
+
+        int x = w / 2;
+        int y = h / 2;
+
+        at.rotate(rads, x, y);
+        g2d.setTransform(at);
+        g2d.drawImage(img, 0, 0, null);
+        g2d.setColor(Color.RED);
+        //g2d.drawRect(0, 0, newWidth - 1, newHeight - 1);
+        g2d.dispose();
+
+        return rotated;
+    }
+    
+    public static BufferedImage rotate(BufferedImage bimg, double angle) {
+
+        int w = bimg.getWidth();    
+        int h = bimg.getHeight();
+
+        BufferedImage rotated = new BufferedImage(w+100, h+100, bimg.getType());  
+        Graphics2D graphic = rotated.createGraphics();
+        graphic.rotate(Math.toRadians(angle), (w/2)+50, (h/2)+50);
+        graphic.drawImage(bimg, null, 0+50, 0+50);
+        graphic.dispose();
+        return rotated;
+    }
+    
+    
 }

@@ -18,6 +18,8 @@ public class KeyManager implements KeyListener {
 	public boolean dP = false;
 	public boolean lP = false;
 	public boolean rP = false;
+	public boolean alP = false;
+	public boolean arP = false;
 	
 	private Handler handler;
 	
@@ -117,6 +119,20 @@ public class KeyManager implements KeyListener {
 		this.rP = rP;
 	}
 	
+	public void setarP(boolean arP) {
+		this.arP = arP;
+	}
 	
+	public void setalP(boolean alP) {
+		this.alP = alP;
+	}
 
+	public boolean isarP() {
+		return arP;
+	}
+	
+	public boolean isalP() {
+		return alP;
+	}
+	
 }

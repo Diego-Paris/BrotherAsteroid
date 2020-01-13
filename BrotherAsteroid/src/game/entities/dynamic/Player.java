@@ -1,6 +1,7 @@
 package game.entities.dynamic;
 
 import main.Handler;
+import resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -35,6 +36,9 @@ public class Player {
 
 	public float currScore = 0; // stores current score
 	public int stepCounter = 0;
+	
+	public int angle;
+	public int angleVel;
 
 	public boolean paused = false;
 	
@@ -53,6 +57,8 @@ public class Player {
 		xVel = 0;
 		shots = new Laser[2];
 		shotIndex = 0;
+		angle = 0;
+		angleVel = 0;
 	}
 	
 	public void tick() { 
@@ -60,13 +66,21 @@ public class Player {
 		movementOnPressed();
 		wrapAround();
 		fire();
+		//System.out.println(angle);
+		System.out.println(angleVel);
+		
 
 	}
 	
 	public void render(Graphics g, Boolean[][] playeLocation) {
-		g.setColor(Color.white);
-		g.fillRect(xCoord, yCoord, 32, 32);
-
+		//g.setColor(Color.white);
+		//g.fillRect(xCoord, yCoord, 32, 32);
+		
+		//g.drawImage(Images.rockets[0] , xCoord, yCoord, 64, 64,null);
+		
+		g.drawImage(Images.rotate(Images.rockets[0], angle) , xCoord, yCoord, 128, 128,null);
+		
+		
 //		if(laser != null) {
 //			laser.render(g);
 //		}
@@ -76,14 +90,18 @@ public class Player {
 				shots[i].render(g);
 			}
 		}
-		
-		
-		
 	}
+	
+	
 	
 	public void movementOnPressed() {
 		xCoord += xVel;
 		yCoord += yVel;
+		
+		angle += angleVel;
+		
+		if(angle > 360) {angle = 0;}
+		if(angle < 0)   {angle = 360;}
 
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)) {
 			handler.getKeyManager().setuP(true);
@@ -105,6 +123,19 @@ public class Player {
 			paused = true;
 			State.setState(handler.getGame().pauseState);
 		}
+		
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)) {
+			handler.getKeyManager().setarP(true);
+			this.angleVel = 3;
+		}
+		
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)) {
+			handler.getKeyManager().setalP(true);
+			this.angleVel = -3;
+		}
+		
+		
+		
 	}
 
 	public void movementOnRelease(KeyEvent d) {
@@ -162,12 +193,33 @@ public class Player {
 				setXVel(0);	
 			}	
 		}
-
-//		if(key == KeyEvent.VK_ESCAPE)
-//			if(paused = true) {
-//				paused = !paused;
-//			State.setState(handler.getGame().pauseState);
-//			}
+		
+		if(key == KeyEvent.VK_RIGHT)  
+		{
+			handler.getKeyManager().setarP(false);
+			if(handler.getKeyManager().isalP()) 
+			{
+				angleVel= -3;
+			} 
+			else 
+			{
+				angleVel = 0;	
+			}	
+		}
+		
+		if(key == KeyEvent.VK_LEFT)  
+		{
+			handler.getKeyManager().setalP(false);
+			if(handler.getKeyManager().isarP()) 
+			{
+				angleVel = 3;
+			} 
+			else 
+			{
+				angleVel = 0;	
+			}	
+		}
+		
 
 	}
 
@@ -200,12 +252,11 @@ public class Player {
 			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && shots[shotIndex] == null) {
 				shots[shotIndex] = new Laser(handler);
 				
-				System.out.println("pew");
+				
 			}
 
 			//calls laser tick
 			if(shots[shotIndex] != null) {
-				System.out.println(shots[shotIndex].yCoord);
 				shots[shotIndex].tick();
 			}
 
