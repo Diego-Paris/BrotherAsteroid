@@ -46,6 +46,9 @@ public class Images {
     //Wallpapers
     public static BufferedImage gamestateBackground;
     
+    //Asteroids
+    public static BufferedImage[] asteroids;
+    
     
 
     public Images() {
@@ -60,8 +63,9 @@ public class Images {
         
         buttonTemp = new BufferedImage[3];
         
-        rockets = new BufferedImage[1];
-        lasers = new BufferedImage[1];
+        rockets = new BufferedImage[2];
+        lasers = new BufferedImage[2];
+        asteroids = new BufferedImage[3];
         
         try {
 
@@ -99,7 +103,13 @@ public class Images {
             buttonTemp[2] = ImageIO.read(getClass().getResourceAsStream("/Temp/placeholder_button_pressed.png"));
             
             rockets[0] = ImageIO.read(getClass().getResourceAsStream("/Spaceships/rocket_default.png"));
+            rockets[1] = ImageIO.read(getClass().getResourceAsStream("/Spaceships/The_classic_mk2.png"));
             lasers[0]  = ImageIO.read(getClass().getResourceAsStream("/Lasers/laser_default.png"));
+            lasers[1]  = ImageIO.read(getClass().getResourceAsStream("/Lasers/classic_laser_mk2.png"));
+            
+            asteroids[0]  = ImageIO.read(getClass().getResourceAsStream("/Asteroids/big_asteroid.png"));
+            asteroids[1]  = ImageIO.read(getClass().getResourceAsStream("/Asteroids/med_asteroid.png"));
+            asteroids[2]  = ImageIO.read(getClass().getResourceAsStream("/Asteroids/small_asteroid.png"));
             
             gamestateBackground = ImageIO.read(getClass().getResourceAsStream("/Wallpapers/gamestate_background.jpg"));
             

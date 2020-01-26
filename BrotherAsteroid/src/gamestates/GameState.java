@@ -21,7 +21,8 @@ public class GameState extends State {
         world = new WorldOne(handler);
         handler.setWorld(world);
         handler.getWorld().player= new Player(handler);
-        handler.getWorld().roid = new Asteroid(handler);
+        handler.getWorld().roid = new Asteroid(handler,0);
+        //handler.getWorld().roid = new Asteroid[]{new Asteroid(handler,0),new Asteroid(handler,1),new Asteroid(handler,2)};
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
