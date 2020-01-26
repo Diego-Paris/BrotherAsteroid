@@ -9,6 +9,7 @@ import java.util.Random;
 import java.awt.Rectangle;
 
 import main.Handler;
+import resources.Images;
 
 
 public class Asteroid {
@@ -18,7 +19,7 @@ public class Asteroid {
 	protected int yCoord;
 	protected int width;
 	protected int height;
-	protected String type;
+	protected int type;
 
 	protected int location;
 	protected boolean toSpawn;
@@ -28,7 +29,7 @@ public class Asteroid {
 	
 	List<Integer> directions;
 
-	public Asteroid(Handler handler) 
+	public Asteroid(Handler handler, int type) 
 	{
 		this.handler = handler;
 		//r.nextInt(max)+min;
@@ -40,17 +41,16 @@ public class Asteroid {
 		r = new Random();
 		location = 0;
 		directions = Arrays.asList(-1, -1, 1, 1);
-		
-		width = 32;
-		height = 32;	
-		
+		width = 0;
+		height = 0;	
+		this.type = type;
 	}
 
 	public void tick() {
-		//System.out.println("tickity");
+		//Executes once
 		if(toSpawn) {
 			System.out.println("toSpawn");
-			
+			//type = r.nextInt(2);
 			location = r.nextInt(4)+1;
 			spawnAsteroid();
 			toSpawn = false;
@@ -63,14 +63,36 @@ public class Asteroid {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.ORANGE);
-		g.fillRect(xCoord, yCoord, width, height);
+		
+		if(type == 0) {
+			g.drawImage(Images.asteroids[0], xCoord, yCoord, width, height,null);
+			
+		} else if(type == 1) {
+			g.drawImage(Images.asteroids[1], xCoord, yCoord, width, height,null);
+			
+		} else {
+			g.drawImage(Images.asteroids[2], xCoord, yCoord, width, height,null);
+			
+		}
+		
 		g.setColor(Color.red);
-		g.drawRect(xCoord, yCoord, 32, 32);
+		g.drawRect(xCoord, yCoord, width, height);
 	}
 
 	public void spawnAsteroid() {
 		System.out.println("spawned");
+		
+		if(type == 0) {
+			width = 128;
+			height = 128;
+		} else if(type == 1) {
+			width = 64;
+			height = 64;
+		} else {
+			width = 32;
+			height = 32;
+		}
+		
 		switch(location) {
 		case 1:
 			// spawns left side of the screen
@@ -120,7 +142,7 @@ public class Asteroid {
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle(xCoord,yCoord,32,32);
+		return new Rectangle(xCoord,yCoord,width,height);
 	}
 
 	public int getxCoord() {
