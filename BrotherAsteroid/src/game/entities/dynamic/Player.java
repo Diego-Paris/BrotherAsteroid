@@ -7,8 +7,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
+import game.entities.hostile.*;
 
-import game.entities.Static.Apple;
+import game.entities.hostile.Apple;
 import gamestates.State;
 
 
@@ -37,18 +38,20 @@ public class Player {
 
 	public float currScore = 0; // stores current score
 	public int stepCounter = 0;
-	
+
 	public int angle;
 	public int angleVel;
 
 	public boolean paused = false;
-	
+
 	Laser laser;
 	Laser shots[];
 	int shotIndex;
-	
+
 	public ArrayList<Laser> shotsFired;
 	public ArrayList<Laser> toRemove;
+
+
 
 	public Player(Handler handler){
 		this.handler = handler;
@@ -65,53 +68,42 @@ public class Player {
 		angleVel = 0;
 		shotsFired = new ArrayList<Laser>();
 		toRemove = new ArrayList<Laser>();
+
+
 	}
-	
+
 	public void tick() { 
 
 		movementOnPressed();
 		wrapAround();
 		fire();
-		
-		
+
+
+
 
 	}
-	
+
 	public void render(Graphics g, Boolean[][] playeLocation) {
-		//g.setColor(Color.white);
-		//g.fillRect(xCoord, yCoord, 32, 32);
-		
-		//g.drawImage(Images.rockets[0] , xCoord, yCoord, 64, 64,null);
-		
-		
-		
-//		if(laser != null) {
-//			laser.render(g);
-//		}
-		
-//		for (int i = 0; i < shots.length; i++) {
-//			if(shots[i] != null) {
-//				shots[i].render(g);
-//			}
-//		}
-		
+
 		for (Laser laser : shotsFired) {
 			if(laser != null) {
-			laser.render(g);
+				laser.render(g);
 			}
 		}
 		g.drawImage(Images.rotate(Images.rockets[0], angle) , xCoord, yCoord, 70, 70,null);
-		
+		g.setColor(Color.red);
+		g.drawRect(xCoord, yCoord, 70, 70);
+
 	}
-	
-	
-	
+
+
+
 	public void movementOnPressed() {
 		xCoord += xVel;
 		yCoord += yVel;
-		
+
 		angle += angleVel;
-		
+
 		if(angle > 360) {angle = 0;}
 		if(angle < 0)   {angle = 360;}
 
@@ -135,19 +127,19 @@ public class Player {
 			paused = true;
 			State.setState(handler.getGame().pauseState);
 		}
-		
+
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)) {
 			handler.getKeyManager().setarP(true);
 			this.angleVel = 3;
 		}
-		
+
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)) {
 			handler.getKeyManager().setalP(true);
 			this.angleVel = -3;
 		}
-		
-		
-		
+
+
+
 	}
 
 	public void movementOnRelease(KeyEvent d) {
@@ -205,7 +197,7 @@ public class Player {
 				setXVel(0);	
 			}	
 		}
-		
+
 		if(key == KeyEvent.VK_RIGHT)  
 		{
 			handler.getKeyManager().setarP(false);
@@ -218,7 +210,7 @@ public class Player {
 				angleVel = 0;	
 			}	
 		}
-		
+
 		if(key == KeyEvent.VK_LEFT)  
 		{
 			handler.getKeyManager().setalP(false);
@@ -231,7 +223,7 @@ public class Player {
 				angleVel = 0;	
 			}	
 		}
-		
+
 
 	}
 
@@ -257,63 +249,38 @@ public class Player {
 	}
 
 	public void fire() {
-		
-//		for (int i = 0; i < shots.length; i++) {
-//			
-//			// creates a new laser and pews
-//			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && shots[shotIndex] == null) {
-//				shots[shotIndex] = new Laser(handler);
-//				
-//				
-//			}
-//
-//			//calls laser tick
-//			if(shots[shotIndex] != null) {
-//				shots[shotIndex].tick();
-//			}
-//
-//			//if laser reached its life then nullify
-//			if(shots[shotIndex] != null && shots[shotIndex].getLife() == shots[shotIndex].getLifeTotal()) {
-//				shots[shotIndex] = null;
-//			}	
-//			shotIndex++;
-//		}
-//		
-//		if(shotIndex > 1) 
-//			shotIndex = 0;
-//		
-//		// creates a new laser and pews
-//		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE) && laser == null) {
-//			laser = new Laser(handler);
-//			System.out.println("pew");
-//		}
-//
-//		//calls laser tick
-//		if(laser != null) {
-//			System.out.println(laser.yCoord);
-//			laser.tick();
-//		}
-//
-//		//if laser reached its life then nullify
-//		if(laser != null && laser.getLife() == laser.getLifeTotal()) {
-//			laser = null;
-//		}
 
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SPACE)) {
-			
+
 			shotsFired.add(new Laser(handler));
 			System.out.println("PEW!");
+
 		}
 		for (Laser laser : shotsFired) {
+
 			if(laser.life == laser.lifeTotal)
 				toRemove.add(laser);
-			if(laser != null)
+
+			if(laser != null) {
 				laser.tick();
-			
+				
+				if(handler.getWorld().roid != null && laser.getBounds().intersects(handler.getWorld().roid.getBounds())) {
+									System.out.println("LASER HIT AN ASTEROID");
+									toRemove.add(laser);
+									//handler.getWorld().roid = null;
+				}
+			}
+
+
 		}
 		shotsFired.removeAll(toRemove);
-		
+		toRemove.clear();
 	}
+
+	public Rectangle getBounds() {
+		return new Rectangle(xCoord,yCoord,70,70);
+	}
+
 
 	public void setXVel(int xVel) {
 		this.xVel = xVel;

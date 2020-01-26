@@ -1,6 +1,7 @@
 package gamestates;
 
 import game.entities.dynamic.Player;
+import game.entities.hostile.Asteroid;
 import main.Handler;
 import worlds.WorldBase;
 import worlds.WorldOne;
@@ -20,6 +21,7 @@ public class GameState extends State {
         world = new WorldOne(handler);
         handler.setWorld(world);
         handler.getWorld().player= new Player(handler);
+        handler.getWorld().roid = new Asteroid(handler);
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
@@ -44,7 +46,7 @@ public class GameState extends State {
     public void render(Graphics g) {
 
         handler.getWorld().render(g);
-
+ 
     }
 
 }

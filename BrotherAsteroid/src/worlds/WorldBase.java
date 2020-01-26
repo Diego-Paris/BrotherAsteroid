@@ -2,7 +2,8 @@ package worlds;
 
 import game.entities.dynamic.Player;
 import game.entities.dynamic.Tail;
-import game.entities.Static.Apple;
+import game.entities.hostile.Apple;
+import game.entities.hostile.Asteroid;
 import main.Handler;
 import resources.Images;
 
@@ -27,6 +28,7 @@ public abstract class WorldBase {
     public int GridPixelsize;
 
     public Player player;
+    public Asteroid roid;
 
     protected Handler handler;
 
@@ -45,7 +47,7 @@ public abstract class WorldBase {
         this.handler = handler;
 
         appleOnBoard = false;
-
+        
 
     }
     public void tick(){

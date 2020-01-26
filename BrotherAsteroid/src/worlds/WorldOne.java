@@ -1,17 +1,20 @@
 package worlds;
 
-import game.entities.Static.Apple;
 import main.Handler;
 import resources.Images;
 
 import java.awt.*;
 import java.util.Random;
 
+import game.entities.hostile.Apple;
+import game.entities.hostile.Asteroid;
+
 /**
  * Created by AlexVR on 7/2/2018.
  */
 public class WorldOne extends WorldBase{
 
+	
     public WorldOne (Handler handler) {
         super(handler);
 
@@ -23,13 +26,21 @@ public class WorldOne extends WorldBase{
         GridPixelsize = (600/GridWidthHeightPixelCount);
         playerLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
         appleLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
-
+        
+        //roid = new Asteroid(handler);
     }
 
     @Override
     public void tick() {
         super.tick();
         player.tick();
+        roid.tick();
+        
+        if(player.getBounds().intersects(roid.getBounds())) {
+        	System.out.println("INTERSECTED, YAY!");
+        }
+        
+        
         if(!appleOnBoard){
             appleOnBoard=true;
             int appleX = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
@@ -59,8 +70,9 @@ public class WorldOne extends WorldBase{
     	g.setFont(new Font("Consolas", Font.PLAIN ,  25));
     	g.drawString("Score: " + player.currScore, 40, 20);
     	
+    	
         player.render(g,playerLocation);
-        
+        roid.render(g);
     }
 
 }

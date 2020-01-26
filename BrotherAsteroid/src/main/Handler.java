@@ -1,6 +1,5 @@
 package main;
 
-
 import input.KeyManager;
 import input.MouseManager;
 import worlds.WorldBase;
@@ -31,6 +30,7 @@ public class Handler {
     public GameSetUp getGame() {
         return game;
     }
+    
 
     public void setGame(GameSetUp game) {
         this.game = game;

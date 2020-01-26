@@ -63,7 +63,13 @@ public class GameSetUp implements Runnable {
     private AudioInputStream audioStream;
     private AudioFormat format;
     private DataLine.Info info;
-    private Clip audioClip;
+    public Clip audioClip;
+    
+    private InputStream audioFile2;
+    private AudioInputStream audioStream2;
+    private AudioFormat format2;
+    private DataLine.Info info2;
+    private Clip audioClip2;
 
     private BufferedImage loading;
 
@@ -110,6 +116,14 @@ public class GameSetUp implements Runnable {
             audioClip = (Clip) AudioSystem.getLine(info);
             audioClip.open(audioStream);
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+            
+//            audioFile2 = getClass().getResourceAsStream("/music/laser_sound1.wav");
+//            audioStream2 = AudioSystem.getAudioInputStream(audioFile2);
+//            format2 = audioStream2.getFormat();
+//            info2 = new DataLine.Info(Clip.class, format2);
+//            audioClip2 = (Clip) AudioSystem.getLine(info2);
+//            audioClip2.open(audioStream2);
+//            audioClip2.loop(2);
             
 
         } catch (UnsupportedAudioFileException e) {

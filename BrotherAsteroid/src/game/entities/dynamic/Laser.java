@@ -49,10 +49,9 @@ public class Laser {
 	}
 	
 	public void render(Graphics g) {
-//		g.setColor(Color.red);
-//		g.fillRect(xCoord, yCoord, 10, 30);
-		//g.drawImage(Images.lasers[0] ,(int) xCoord, (int)yCoord, 30, 30,null);
 		g.drawImage(Images.rotate(Images.lasers[0], angle) , (int)xCoord, (int)yCoord, 30, 30,null);
+		g.setColor(Color.red);
+		g.drawRect((int)xCoord, (int)yCoord, 30, 30);
 	}
 	
 	public void wrapAround() {
@@ -72,9 +71,12 @@ public class Laser {
 		// If goes off right, then appear left
 		if(yCoord > handler.getGame().getHeight() -5)
 			yCoord = -20;
-
-
 	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle((int)xCoord, (int)yCoord,30,30);
+	}
+	
 	
 	public int getLife() {
 		return life;
